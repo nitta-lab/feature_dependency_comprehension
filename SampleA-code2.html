@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>SampleA-2</title>
+<meta charset="UTF-8">
+<!script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&skin=sunburst"><!/script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="./prettify.css">
+<!link rel="stylesheet" type="text/css" href="./float.css">
+</head>
+<body>
+<!div class="sequence_float">
+<!pre class="prettyprint linenums lang-java call_float">
+<pre class="prettyprint linenums lang-java">
+public class ActionRemoveFromDiagram extends AbstractAction {
+    public void actionPerformed(ActionEvent ae) {
+        Editor ce = Globals.<a href="#curEditor" name="rcurEditor">curEditor()</a>;
+        List&lt;Fig&gt; figs = ce.<a href="#getSelectionManager" name="rgetSelectionManager">getSelectionManager()</a>.<a href="#getFigs" name="rgetFigs">getFigs()</a>;
+        for (Fig f : figs) {
+            f.removeFromDiagram();
+        }
+    }
+}
+</pre>
+<pre class="prettyprint linenums lang-java">
+public class Globals {
+    protected static Editor _curEditor;
+
+    public static Editor <a name="curEditor">curEditor()</a> {
+        return _curEditor;
+    }<a href="#rcurEditor" > //return to the caller</a>
+}
+</pre>
+<pre class="prettyprint linenums lang-java">
+public class Editor implements Serializable, MouseListener,
+        MouseMotionListener, KeyListener {
+    protected SelectionManager _selectionManager = new SelectionManager(this);
+
+    public SelectionManager <a name="getSelectionManager">getSelectionManager()</a> {
+        return _selectionManager;
+    }<a href="#rgetSelectionManager"> //return to the caller</a>
+}
+</pre>
+<pre class="prettyprint linenums lang-java">
+public class SelectionManager implements Serializable, KeyListener,
+        MouseListener, MouseMotionListener {
+    private List&lt;Selection&gt; selections = new ArrayList&lt;Selection&gt;();
+
+    public Vector&lt;Fig&gt; <a name="getFigs">getFigs()</a> {
+        Vector&lt;Fig&gt; figs = new Vector&lt;Fig&gt;(selections.size());
+        figs.addElement(((Selection) selections.get(i)).<a href="#getContent" name="rgetContent">getContent())</a>;
+        return figs;
+    }<a href="#rgetFigs"> //return to the caller</a>
+}
+</pre>
+<pre class="prettyprint linenums lang-java">
+public abstract class Selection implements Serializable, MouseListener,
+        MouseMotionListener, KeyListener {
+    private Fig content;
+
+    public Fig <a name="getContent">getContent()</a> {
+        return content;
+    }<a href="#rgetContent"> //return to the caller</a>
+}
+</pre>
+<p style="margin-bottom:100em;"></p>
+</body>

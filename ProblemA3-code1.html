@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>ProblemA3-1</title>
+<meta charset="UTF-8">
+<!script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&skin=sunburst"><!/script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="./prettify.css">
+<!link rel="stylesheet" type="text/css" href="./float.css">
+</head>
+<body>
+
+<pre class="prettyprint linenums lang-java">
+public abstract class AbstractTool extends AbstractBean implements Tool {
+    protected DrawingEditor editor;
+    protected Point anchor;
+
+    protected DrawingView <a name="getView">getView()</a><a name="getView2"></a> {
+        return editor.<a href="#getActiveView" name="rgetActiveView">getActiveView()</a>;
+    } <a href="#rgetView">//return to the caller(SelectionTool Class line:15)</a>, <a href="#rgetView2">//(DefaultDragTracker Class line:39)</a>
+}
+
+public class SelectionTool extends AbstractTool {
+    private Tool tracker;
+    private DragTracker dragTracker;
+
+    public void mousePressed(MouseEvent evt) {
+        DrawingView view = <a href="#getView" name="rgetView">getView()</a>;
+        Tool newTracker;
+        Figure figure;
+        figure = view.findFigure(anchor);
+        newTracker = <a href="#getDragTracker" name="rgetDragTracker">getDragTracker(figure)</a>;
+        <a href="#setTracker" name="rsetTracker">setTracker(newTracker)</a>;
+        tracker.<a href="#mousePressed" name="rmousePressed">mousePressed(evt)</a>;
+    }
+
+    protected void <a name="setTracker">setTracker(Tool newTracker)</a> {
+        tracker = newTracker;
+    } <a href="#rsetTracker">//return to the caller</a>
+
+    protected DragTracker <a name="getDragTracker">getDragTracker(Figure f)</a> {
+        dragTracker = new DefaultDragTracker();
+        dragTracker.<a href="#setDraggedFigure" name="rsetDraggedFigure">setDraggedFigure(f)</a>;
+        return dragTracker;
+    } <a href="#rgetDragTracker">//return to the caller</a>
+}
+
+public class DefaultDragTracker extends AbstractTool implements DragTracker {
+    protected Figure anchorFigure;
+
+    public void <a name="mousePressed">mousePressed(MouseEvent evt)</a> {
+        DrawingView view = <a href="#getView2" name="rgetView2">getView()</a>;
+        view.<a href="#addToSelection" name="raddToSelection">addToSelection(anchorFigure)</a>;
+    } <a href="#rmousePressed">//return to the caller</a>
+
+    public void <a name="setDraggedFigure">setDraggedFigure(Figure f)</a> {
+        anchorFigure = f;
+    } <a href="#rsetDraggedFigure">//return to the caller</a>
+}
+</pre>
+
+<pre class="prettyprint linenums lang-java">
+public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor {
+    private DrawingView activeView;
+
+    public DrawingView <a name="getActiveView">getActiveView()</a> {
+        return activeView;
+    } <a href="#rgetActiveView">//return to the caller</a>
+}
+</pre>
+
+<pre class="prettyprint linenums lang-java">
+public class DefaultDrawingView
+        extends JComponent
+        implements DrawingView, EditableComponent {
+    private Set&lt;Figure&gt; selectedFigures = new LinkedHashSet&lt;Figure&gt;();
+
+    public void <a name="addToSelection">addToSelection(Figure figure)</a> {
+        selectedFigures.add(figure);
+    } <a href="#raddToSelection">//return to the caller</a>
+}
+</pre>
+
+<!/div>
+<p style="margin-bottom:100em;"></p>
+<!/div>
+</body>

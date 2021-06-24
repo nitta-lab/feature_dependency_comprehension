@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>ProblemB2-1</title>
+<meta charset="UTF-8">
+<!script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&skin=sunburst"><!/script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="./prettify.css">
+<!link rel="stylesheet" type="text/css" href="./float.css">
+</head>
+<body>
+
+<pre class="prettyprint linenums lang-java">
+public class TextAreaMouseHandler extends MouseInputAdapter
+{
+	public void mouseDragged(MouseEvent evt)
+	{
+		<a href="#doSingleDrag" name="rdoSingleDrag">doSingleDrag(evt)</a>;
+	}
+
+	private void <a name="doSingleDrag">doSingleDrag(MouseEvent evt)</a>
+	{
+		textArea.<a href="#resizeSelection" name="rresizeSelection">resizeSelection(dragStart,dot,extraEndVirt,
+			textArea.isRectangularSelectionEnabled()
+			|| (control && ctrlForRectangularSelection))</a>;
+	} <a href="#rdoSingleDrag">//return to the caller</a>
+
+	protected final TextArea textArea;
+}
+</pre>
+    
+<pre class="prettyprint linenums lang-java">
+public abstract class TextArea extends JComponent
+{
+	public void <a name="resizeSelection">resizeSelection(int offset, int end, int extraEndVirt,
+		boolean rect)</a>
+	{
+		selectionManager.<a href="#resizeSelection2" name="rresizeSelection2">resizeSelection(offset,end,extraEndVirt,rect)</a>;
+	} <a href="#rresizeSelection">//return to the caller</a>
+
+	final SelectionManager selectionManager;
+}
+
+</pre>
+
+<pre class="prettyprint linenums lang-java">
+class SelectionManager
+{
+	List&lt;Selection&gt; selection;
+
+	void <a name="addToSelection">addToSelection(Selection addMe)</a>
+	{
+		selection.add(addMe);
+	} <a href="#raddToSelection">//return to the caller</a>
+
+	void <a name="resizeSelection2">resizeSelection(int offset, int end, int extraEndVirt,
+		boolean rect)</a>
+	{
+		Selection newSel;
+		newSel = new Selection.Range(offset,end);
+		<a href="#addToSelection" name="raddToSelection">addToSelection(newSel)</a>;
+	} <a href="#rresizeSelection2">//return to the caller</a>
+}
+
+</pre>
+<p style="margin-bottom:100em;"></p>
+</body>
+

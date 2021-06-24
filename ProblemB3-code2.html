@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>ProblemB3-2</title>
+<meta charset="UTF-8">
+<!script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&skin=sunburst"><!/script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="./prettify.css">
+<!link rel="stylesheet" type="text/css" href="./float.css">
+</head>
+<body>
+
+<pre class="prettyprint linenums lang-java">
+public abstract class AbstractTool extends AbstractBean implements Tool {
+    protected Point anchor;
+}
+
+public class SelectionTool extends AbstractTool {
+    private Tool tracker;
+
+    public void mouseDragged(MouseEvent evt) {
+        tracker.<a href="#mouseDragged" name="rmouseDragged">mouseDragged(evt)</a>;
+    }
+
+    public void mousePressed(MouseEvent evt) {
+        tracker.<a href="#mousePressed" name="rmousePressed">mousePressed(evt)</a>;
+    }
+}
+
+public class DefaultDragTracker extends AbstractTool implements DragTracker {
+    private HashSet&lt;Figure&gt; transformedFigures;
+
+    public void <a name="mousePressed">mousePressed(MouseEvent evt)</a> {
+        Figure f;
+        Iterator&lt;Figure&gt; iterator;
+        f = iterator.next();
+        transformedFigures.add(f);
+    } <a href="#rmousePressed">//return to the caller</a>
+    
+    public void <a name="mouseDragged">mouseDragged(MouseEvent evt)</a> {
+        Figure f;
+        Iterator&lt;Figure&gt; iterator;
+        f = iterator.next();
+        f.transform(tx);
+    } <a href="#rmouseDragged">//return to the caller</a>
+}
+
+</pre>
+<p style="margin-bottom:100em;"></p>
+</body>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>ProblemA3-2</title>
+<meta charset="UTF-8">
+<!script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&skin=sunburst"><!/script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="./prettify.css">
+<!link rel="stylesheet" type="text/css" href="./float.css">
+</head>
+<body>
+
+<pre class="prettyprint linenums lang-java">
+public abstract class AbstractTool extends AbstractBean implements Tool {
+    protected DrawingEditor editor;
+    protected Point anchor;
+
+    protected DrawingView <a name="getView">getView()</a> {
+        return editor.<a href="#getActiveView" name="rgetActiveView">getActiveView()</a>;
+    } <a href="#rgetView">//return to the caller</a>
+}
+
+public class SelectionTool extends AbstractTool {
+    private Tool tracker;
+
+    public void mouseDragged(MouseEvent evt) {
+        tracker.<a href="#mouseDragged" name="rmouseDragged">mouseDragged(evt)</a>;
+    }
+
+    public void mousePressed(MouseEvent evt) {
+        Tool newTracker;
+        Figure figure;
+        newTracker = <a href="#getDragTracker" name="rgetDragTracker">getDragTracker(figure)</a>;
+        <a href="#setTracker" name="rsetTracker">setTracker(newTracker)</a>;
+        tracker.<a href="#mousePressed" name="rmousePressed">mousePressed(evt)</a>;
+    }
+
+    protected void <a name="setTracker">setTracker(Tool newTracker)</a> {
+        tracker = newTracker;
+    } <a href="#rsetTracker">//return to the caller</a>
+
+    protected DragTracker <a name="getDragTracker">getDragTracker(Figure f)</a> {
+        dragTracker = new DefaultDragTracker();
+        return dragTracker;
+    } <a href="#rgetDragTracker">//return to the caller</a>
+}
+
+public class DefaultDragTracker extends AbstractTool implements DragTracker {
+    private HashSet&lt;Figure&gt; transformedFigures;
+
+    public void <a name="mousePressed">mousePressed(MouseEvent evt)</a> {
+        DrawingView view = <a href="#getView" name="rgetView">getView()</a>;
+        transformedFigures = new HashSet&lt;Figure&gt;();
+        for (Figure f &#58; view.<a href="#getSelectedFigures" name="rgetSelectedFigures">getSelectedFigures()</a>) {
+            transformedFigures.add(f);
+        } <a href="#rmousePressed">//return to the caller</a>
+    }
+
+    public void <a name="mouseDragged">mouseDragged(MouseEvent evt)</a> {
+        AffineTransform tx;
+        for (Figure f &#58; transformedFigures) {
+            f.transform(tx);
+        }
+    } <a href="#rmouseDragged">//return to the caller</a>
+}
+</pre>
+
+<pre class="prettyprint linenums lang-java">
+public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor {
+    private DrawingView activeView;
+
+    public DrawingView <a name="getActiveView">getActiveView()</a> {
+        return activeView;
+    } <a href="#rgetActiveView">//return to the caller</a>
+}
+</pre>
+
+<pre class="prettyprint linenums lang-java">
+public class DefaultDrawingView
+        extends JComponent
+        implements DrawingView, EditableComponent {
+    private Set&lt;Figure&gt; selectedFigures = new LinkedHashSet&lt;Figure&gt;();
+
+    public Set&lt;Figure&gt; <a name="getSelectedFigures">getSelectedFigures()</a> {
+        return Collections.unmodifiableSet(selectedFigures);
+    } <a href="#rgetSelectedFigures">//return to the caller</a>
+}
+</pre>
+<p style="margin-bottom:100em;"></p>
+</body>
+en

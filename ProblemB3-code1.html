@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>ProblemB3-1</title>
+<meta charset="UTF-8">
+<!script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&skin=sunburst"><!/script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="./prettify.css">
+<!link rel="stylesheet" type="text/css" href="./float.css">
+</head>
+<body>
+
+<pre class="prettyprint linenums lang-java">
+public abstract class AbstractTool extends AbstractBean implements Tool {
+    protected Point anchor;
+}
+
+public class SelectionTool extends AbstractTool {
+    private Tool tracker;
+    private DragTracker dragTracker;
+
+    public void mousePressed(MouseEvent evt) {
+        DrawingView view;
+        Figure figure;
+        figure = view.findFigure(anchor);
+        <a href="#getDragTracker" name="rgetDragTracker">getDragTracker(figure)</a>;
+        tracker.<a href="#mousePressed" name="rmousePressed">mousePressed(evt)</a>;
+    }
+
+    protected DragTracker <a name="getDragTracker">getDragTracker(Figure f)</a> {
+        dragTracker.<a href="#setDraggedFigure" name="rsetDraggedFigure">setDraggedFigure(f)</a>;
+    } <a href="#rgetDragTracker">//return to the caller</a>
+}
+
+public class DefaultDragTracker extends AbstractTool implements DragTracker {
+    protected Figure anchorFigure;
+
+    public void <a name="mousePressed">mousePressed(MouseEvent evt)</a> {
+        DrawingView view;
+        view.<a href="#addToSelection" name="raddToSelection">addToSelection(anchorFigure)</a>;
+    } <a href="#rmousePressed">//return to the caller</a>
+
+    public void <a name="setDraggedFigure">setDraggedFigure(Figure f)</a> {
+        anchorFigure = f;
+    } <a href="#rsetDraggedFigure">//return to the caller</a>
+}
+</pre>
+
+<pre class="prettyprint linenums lang-java">
+public class DefaultDrawingView
+        extends JComponeen
+        implements DrawingView, EditableComponent {
+    private Set&lt;Figure&gt; selectedFigures;
+
+    public void <a name="addToSelection">addToSelection(Figure figure)</a> {
+        selectedFigures.add(figure);
+    } <a href="#raddToSelection">//return to the caller</a>
+}
+</pre>
+
+<!/div>
+<p style="margin-bottom:100em;"></p>
+<!/div>
+</body>

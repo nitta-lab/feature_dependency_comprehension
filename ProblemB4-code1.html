@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<title>ProblemB4-1</title>
+<meta charset="UTF-8">
+<!script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&skin=sunburst"><!/script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="./prettify.css">
+<!link rel="stylesheet" type="text/css" href="./float.css">
+</head>
+<body>
+
+<pre class="prettyprint linenums lang-java">
+public abstract class AbstractTool extends AbstractBean implements Tool {
+    protected DrawingEditor editor;
+
+    protected DrawingView <a name="getView">getView()</a> {
+        return editor.<a href="#getActiveView" name="rgetActiveView">getActiveView()</a>;
+    } <a href="#rgetView">//return to the caller</a>
+    
+    protected Drawing <a name="getDrawing">getDrawing()</a> {
+        return <a href="#getView" name="rgetView">getView()</a>.<a href="#getDrawing2" name="rgetDrawing2">getDrawing()</a>;
+    } <a href="#rgetDrawing">//return to the caller</a>
+}
+
+public class CreationTool extends AbstractTool {
+    protected Figure createdFigure;
+
+    public void mousePressed(MouseEvent evt) {
+        createdFigure = createFigure();
+        <a href="#getDrawing" name="rgetDrawing">getDrawing()</a>.<a href="#add" name="radd">add(createdFigure)</a>;
+    }
+}
+</pre>
+    
+<pre class="prettyprint linenums lang-java">
+public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor {
+    private DrawingView activeView;
+
+    public DrawingView <a name="getActiveView">getActiveView()</a> {
+        return activeView;
+    } <a href="#rgetActiveView">//return to the caller</a>
+}
+</pre>
+
+<pre class="prettyprint linenums">
+public class DefaultDrawingView
+        extends JComponent
+        implements DrawingView, EditableComponent {
+    private Drawing drawing;
+
+    public Drawing <a name="getDrawing2">getDrawing()</a> {
+        return drawing;
+    } <a href="#rgetDrawing2">//return to the caller</a>
+}
+</pre>
+
+<pre class="prettyprint linenums lang-java">
+public abstract class AbstractCompositeFigure
+        extends AbstractFigure
+        implements CompositeFigure, DOMStorable {
+    protected ArrayList&lt;Figure&gt; children = new ArrayList&lt;Figure&gt;();
+
+    public boolean <a name="add">add(Figure figure)</a> {
+        <a href="#add2" name="radd2">add(getChildCount(), figure)</a>;
+    } <a href="#radd">//return to the caller</a>
+
+    public void <a name="add2">add(int index, Figure figure)</a> {
+        <a href="#basicAdd" name="rbasicAdd">basicAdd(index, figure)</a>;
+    } <a href="#radd2">//return to the caller</a>
+}
+</pre>
+
+<pre class="prettyprint linenums lang-java">
+public class QuadTreeDrawing extends AbstractDrawing {
+
+    public void <a name="basicAdd">basicAdd(int index, Figure figure)</a> {
+        <a href="#add3" name="radd3">quadTree.add(figure, figure.getDrawingArea())</a>;
+    } <a href="#rbasicAdd">//return to the caller</a>
+}
+</pre>
+
+<pre class="prettyprint linenums lang-java">
+public class QuadTree&lt;T&gt; implements Serializable {
+    private QuadNode root;
+
+    public void <a name="add3">add(T o, Rectangle2D.Double bounds)</a> {
+        <a href="#add4" name="radd4">root.add(o, (Rectangle2D.Double) bounds.clone())</a>;
+    } <a href="#radd3">//return to the caller</a>
+
+    private class QuadNode implements Serializable {
+        private Rectangle2D.Double bounds;
+        private HashMap&lt;T,Rectangle2D.Double&gt; objects;
+
+        public void <a name="add4">add(T o, Rectangle2D.Double oBounds)</a> {
+            objects.put(o, oBounds);
+        } <a href="#radd4">//return to the caller</a>
+    }
+}
+</pre>
+<p style="margin-bottom:100em;"></p>
+</body>

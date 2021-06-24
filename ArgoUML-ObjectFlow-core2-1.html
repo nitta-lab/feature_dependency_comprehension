@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title></title>
+<!script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&skin=sunburst">
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="./prettify.css">
+<!link rel="stylesheet" type="text/css" href="./float.css">
+</head>
+<body>
+<!div class="sequence_float">
+<!pre class="prettyprint linenums lang-java call_float">
+<pre class="prettyprint linenums lang-java">
+public class ModeSelect extends FigModifyingModeImpl {
+
+    public void mousePressed(MouseEvent me) {
+        Fig underMouse = editor.hit(selectAnchor);
+        sm.<a href="#select" name ="rselect">select(underMouse)</a>;
+    }
+}
+</pre>
+<pre class="prettyprint linenums lang-java">
+public class SelectionManager implements Serializable, KeyListener,
+        MouseListener, MouseMotionListener {
+    private List&lt;Selection&gt; selections = new ArrayList&lt;Selection&gt;();
+
+    protected <a name="addFig">addFig(Fig f)</a> {
+        <a href="#makeSelectionFor" name="rmakeSelectionFor">makeSelectionFor(f)</a>
+    }<a href="#raddFig"> //return to the caller</a>
+
+    public void <a name="select">select(Fig f)</a> {
+        <a href="#addFig" name="raddFig">addFig(f)</a>;
+    }<a href="#rselect">//return to the caller</a>
+
+    public static Selection <a name="makeSelectionFor">makeSelectionFor(Fig f)</a> {
+        f.<a href="#makeSelection" name="rmakeSelection">makeSelection()</a>;
+    }<a href="#rmakeSelectionFor"> //return to the caller</a>
+}
+
+</pre>
+<pre class="prettyprint linenums lang-java">
+public class FigClass extends FigClassifierBox {
+
+    public Selection <a name="makeSelection">makeSelection()</a> {
+        new <a href="#SelectionClass1" name="rSelectionClass1">SelectionClass(this)</a>;
+    }<a href="#rmakeSelection"> //return to the caller</a> 
+}
+
+</pre>
+<pre class="prettyprint linenums lang-java">
+public class SelectionClass extends SelectionClassifierBox {
+    public <a name="SelectionClass1">SelectionClass(Fig f)</a> { 
+        <a href="#SelectionClass2" name="rSelectionClass2">super(f)</a>;
+    }<a href="#rSelectionClass1"> //return to the caller</a>
+}
+
+public abstract class SelectionClassifierBox extends
+        SelectionNodeClarifiers2 {
+    public <a name="SelectionClass2">SelectionClassifierBox(Fig f)</a> {
+        <a href="#SelectionClass3" name="rSelectionClass3">super(f)</a>;
+    }<a href="#rSelectionClass2"> //return to the caller</a>
+}
+
+public abstract class SelectionNodeClarifiers2 extends SelectionButtons {
+    public <a name="SelectionClass3">SelectionNodeClarifiers2(Fig f)</a> {
+        <a href="#SelectionClass4" name="rSelectionClass4">super(f)</a>;
+    }<a href="#rSelectionClass3"> //return to the caller</a>
+}
+
+public abstract class SelectionButtons extends SelectionResize {
+    public <a name="SelectionClass4">SelectionButtons(Fig f)</a> {
+        <a href="#SelectionClass5" name="rSelectionClass5">super(f)</a>;
+    }<a href="#rSelectionClass4"> //return to the caller</a>
+}
+
+public class SelectionResize extends Selection {
+    public <a name="SelectionClass5">SelectionResize(Fig f)</a> {
+        <a href="#SelectionClass6" name="rSelectionClass6">super(f)</a>;
+    }<a href="#rSelectionClass5"> //return to the caller</a>
+}
+
+public abstract class Selection implements Serializable, MouseListener,
+        MouseMotionListener, KeyListener {
+    private Fig content;
+
+    public <a name="SelectionClass6">Selection(Fig f)</a> {
+        content = f;
+    }<a href="#rSelectionClass6"> //return to the caller</a> {
+}
+</pre>
+<!/div>
+<p style="margin-bottom:50em;"></p>
+
+</body>

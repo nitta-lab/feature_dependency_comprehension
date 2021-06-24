@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<title>ProblemB4-2</title>
+<meta charset="UTF-8">
+<!script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&skin=sunburst"><!/script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="./prettify.css">
+<!link rel="stylesheet" type="text/css" href="./float.css">
+</head>
+<body>
+
+<pre class="prettyprint linenums lang-java">
+public abstract class AbstractTool extends AbstractBean implements Tool {
+    protected DrawingEditor editor;
+    protected Point anchor;
+
+    protected DrawingView <a name="getView">getView()</a> {
+        return editor.<a href="#getActiveView" name="rgetActiveView">getActiveView()</a>;
+    } <a href="#rgetView">//return to the caller</a>
+}
+
+public class SelectionTool extends AbstractTool {
+
+    public void mousePressed(MouseEvent evt) {
+        DrawingView view = <a href="#getView" name="rgetView">getView()</a>;
+        Figure figure;
+        figure = view.<a href="#findFigure" name="rfindFigure">findFigure(anchor)</a>;
+    }
+}
+</pre>
+    
+<pre class="prettyprint linenums lang-java">
+public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor {
+    private DrawingView activeView;
+
+    public DrawingView <a name="getActiveView">getActiveView()</a> {
+        return activeView;
+    } <a href="#rgetActiveView">//return to the caller</a>
+}
+</pre>
+    
+<pre class="prettyprint linenums lang-java">
+public class DefaultDrawingView
+        extends JComponent
+        implements DrawingView, EditableComponent {
+    private Drawing drawing;
+
+    public Drawing <a name="getDrawing">getDrawing()</a> <a name="getDrawing2"></a>{
+        return drawing;
+    } <a href="#rgetDrawing2">return to the caller</a>
+
+    public Figure <a name="findFigure">findFigure(
+            Point p)</a> {
+        return <a href="#getDrawing2" name="rgetDrawing2">getDrawing()</a>.<a href="#findFigure2" name="rfindFigure2">findFigure(viewToDrawing(p))</a>;
+    } <a href="#rfindFigure">//return to the caller</a>
+}
+</pre>
+
+<pre class="prettyprint linenums lang-java">
+public class QuadTreeDrawing extends AbstractDrawing {
+    private QuadTree&lt;Figure&gt; quadTree = new QuadTree&lt;Figure&gt;();
+
+    public Figure <a name="findFigure2">findFigure(Point2D.Double p)</a> {
+        Collection&lt;Figure&gt; c = quadTree.<a href="#findContains" name="rfindContains">findContains(p)</a>;
+        Figure f = c.iterator().next();
+        return f;
+   } <a href="#rfindFigure2">//return to the caller</a>
+}
+</pre>
+
+<pre class="prettyprint linenums lang-java">
+public class QuadTree&lt;T&gt; implements Serializable {
+    private QuadNode root;
+
+    public Collection&lt;T&gt; <a name="findContains">findContains(Point2D.Double p)</a> {
+        HashSet&lt;T&gt; result = new HashSet&lt;T&gt;();
+        root.<a href="#findContains2" name="rfindContains2">findContains(p, result)</a>;
+        return result;
+    } <a href="#rfindFigure2">//return to the caller</a>
+
+    private class QuadNode implements Serializable {
+        private HashMap&lt;T,Rectangle2D.Double&gt; objects;
+
+        public void <a name="findContains2">findContains(Point2D.Double p, HashSet&lt;T&gt; result)</a> {
+            for (Map.Entry&lt;T,Rectangle2D.Double&gt; entry : objects.entrySet()) {
+                result.add(entry.getKey());
+            }
+        } <a href="#rfindContains2">//return to the caller</a>
+    }
+}
+</pre>
+<p style="margin-bottom:100em;"></p>
+</body>
