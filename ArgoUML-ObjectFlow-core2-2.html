@@ -14,10 +14,10 @@
 public class ActionRemoveFromDiagram extends AbstractAction {
 
     public void actionPerformed(ActionEvent ae) {
-        List&lt;Fig&gt; figs = ce.getSelectionManager().<a href="#getFigs" name="rgetFigs">getFigs()</a>;
-        for (Fig f : figs) {
-            f.removeFromDiagram();
-        }
+        Fig f;
+        Iterator&lt;Fig&gt; iterator;
+        f = iterator.next();
+        f.removeFromDiagram();
     }
 }
 </pre>
